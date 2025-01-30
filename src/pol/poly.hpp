@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <utility>
-
+#include <stdexcept>
 namespace poly
 {
     template <typename T>
@@ -15,13 +15,23 @@ namespace poly
 
     private:
         size_t _degree;
-        std::vector<T> _coefficients;
+        std::vector<T> _coeff;
 
     public:
-        poly(/* args */);
-        ~poly();
+        poly(size_t degree) : _degree(degree), _coeff(degree + 1) {};
+        ~poly() = default;
 
-        T &operator[](size_t index)
+        T getDegree() const
+        {
+            return _degree;
+        }
+        /**
+         *
+         *  Operator Overloading
+         *
+         */
+
+        T &operator[](const size_t &index)
         {
             if (index >= _degree + 1)
             {
@@ -30,7 +40,7 @@ namespace poly
             return _coeff[index];
         }
 
-        T operator[](size_t index) const
+        T operator[](const size_t &index) const
         {
             if (index >= _degree + 1)
             {
@@ -47,6 +57,66 @@ namespace poly
                 result = result * x + _coeff[i];
             }
             return result;
+        }
+
+        poly<T> operator+(const poly<T> &other) const
+        {
+            poly<T> result(std::max(_degree, other._degree));
+            for (size_t i = 0; i <= std::max(_degree, other._degree); i++)
+            {
+                result[i] = (i <= _degree ? _coeff[i] : 0) + (i <= other._degree ? other._coeff[i] : 0);
+            }
+            return result;
+        }
+
+        poly<T> operator-(const poly<T> &other) const
+        {
+            return *this + (-other);
+        }
+
+        poly<T> operator*(const poly<T> &other) const
+        {
+            poly<T> result(_degree + other._degree);
+            for (size_t i = 0; i <= _degree; i++)
+            {
+                for (size_t j = 0; j <= other._degree; j++)
+                {
+                    result[i + j] += _coeff[i] * other._coeff[j];
+                }
+            }
+            return result;
+        }
+
+        poly<T> operator-() const
+        {
+            poly<T> result(_degree);
+            for (size_t i = 0; i <= _degree; i++)
+            {
+                result[i] = -_coeff[i];
+            }
+            return result;
+        }
+
+        template <typename U>
+        bool operator==(const poly<U> /**/) const
+        {
+            return false;
+        }
+
+        bool operator==(const poly<T> &other) const
+        {
+            if (_degree != other.getDegree())
+            {
+                return false;
+            }
+            for (size_t i = 0; i <= _degree; i++)
+            {
+                if (_coeff[i] != other[i])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     };
 } // namespace poly
