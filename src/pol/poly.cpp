@@ -11,8 +11,8 @@ int main(void)
         p2[i] = i;
 
     }
-    p = p - p2;
-    for (size_t i = 0; i < p.getDegree() + 1; i++)
+    p = p * p2;
+    for (size_t i = 0; i < p.getDegree() +1 ; i++)
     {
         std::println("{} ", p[i]);
     }

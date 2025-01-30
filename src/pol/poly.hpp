@@ -81,7 +81,8 @@ namespace poly
             {
                 for (size_t j = 0; j <= other.getDegree(); j++)
                 {
-                    result[i + j] += _coeff[i] * other[j];
+                    T tmp = _coeff[i] * other[j];
+                    result[i + j] = result[i + j] + tmp;
                 }
             }
             return result;
