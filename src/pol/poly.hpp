@@ -79,7 +79,7 @@ namespace poly
             poly<T> result(_degree + other._degree);
             for (size_t i = 0; i <= _degree; i++)
             {
-                for (size_t j = 0; j <= other._degree; j++)
+                for (size_t j = 0; j <= other.getDegree(); j++)
                 {
                     result[i + j] += _coeff[i] * other._coeff[j];
                 }
