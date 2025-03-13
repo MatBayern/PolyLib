@@ -27,11 +27,6 @@ namespace poly
     public:
         poly(size_t degree) : _degree(degree), _coeff(degree + 1) {};
         ~poly() = default;
-
-        T getDegree() const
-        {
-            return _degree;
-        }
         /**
          *
          *  Operator Overloading
@@ -105,8 +100,8 @@ namespace poly
             return result;
         }
 
-        template <typename U>
-        bool operator==(const poly<U>& /**/) const
+        template <Arithmetic U>
+        bool operator==(const poly<U> & /**/) const
         {
             return false;
         }
@@ -125,6 +120,15 @@ namespace poly
                 }
             }
             return true;
+        }
+        /**
+         *
+         *  Getters and setters
+         *
+         */
+        size_t getDegree() const noexcept
+        {
+            return _degree;
         }
     };
 } // namespace poly
