@@ -7,20 +7,18 @@
 namespace poly
 {
     template <typename T>
-    concept Arithmetic = requires(T a, T b)
-    {
+    concept Arithmetic = requires(T a, T b) {
         { a + b }
-        ->std::convertible_to<T>;
+          -> std::convertible_to<T>;
         { a - b }
-        ->std::convertible_to<T>;
-        { a * b }
-        ->std::convertible_to<T>;
+          -> std::convertible_to<T>;
+        { a *b }
+        -> std::convertible_to<T>;
     };
 
     template <Arithmetic T>
     class poly
     {
-        
 
     private:
         size_t _degree;
@@ -108,7 +106,7 @@ namespace poly
         }
 
         template <typename U>
-        bool operator==(const poly<U> /**/) const
+        bool operator==(const poly<U>& /**/) const
         {
             return false;
         }
