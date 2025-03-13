@@ -1,17 +1,26 @@
 #pragma once
 #include <cmath>
-#include <vector>
-#include <utility>
+#include <concepts>
 #include <stdexcept>
+#include <utility>
+#include <vector>
 namespace poly
 {
     template <typename T>
+    concept Arithmetic = requires(T a, T b)
+    {
+        { a + b }
+        ->std::convertible_to<T>;
+        { a - b }
+        ->std::convertible_to<T>;
+        { a * b }
+        ->std::convertible_to<T>;
+    };
+
+    template <Arithmetic T>
     class poly
     {
-        // Check if necessary operators are defined for T
-        static_assert(std::is_same<decltype(std::declval<T>() + std::declval<T>()), T>::value, "T must support operator+");
-        static_assert(std::is_same<decltype(std::declval<T>() - std::declval<T>()), T>::value, "T must support operator-");
-        static_assert(std::is_same<decltype(std::declval<T>() * std::declval<T>()), T>::value, "T must support operator*");
+        
 
     private:
         size_t _degree;
