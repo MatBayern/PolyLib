@@ -27,12 +27,12 @@ namespace poly
     public:
         poly(size_t degree) : _degree(degree), _coeff(degree + 1) {};
         ~poly() = default;
+        poly() = default;
         /**
          *
          *  Operator Overloading
          *
          */
-
         T &operator[](const size_t &index)
         {
             if (index >= _degree + 1)
