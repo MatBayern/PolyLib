@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <concepts>
+#include <print>
 #include <stdexcept>
 #include <utility>
 #include <vector>
@@ -64,7 +65,7 @@ public:
     {
         poly<T> result(std::max(_degree, other._degree));
         for (size_t i = 0; i <= std::max(_degree, other._degree); i++) {
-            result[i] = (i <= _degree ? _coeff[i] : 0) + (i <= other._degree ? other._coeff[i] : 0);
+            result[i] = (i <= _degree ? _coeff[i] : T{}) + (i <= other._degree ? other._coeff[i] : T{});
         }
         return result;
     }
@@ -129,5 +130,27 @@ public:
      *  derivative
      *
      */
+    void derivative() noexcept
+    {
+        for (size_t i = 1; i < _degree; i++) {
+            _coeff[i - 1] = _coeff[i] * i;
+        }
+        --_degree;
+    }
+    /**
+     * @short this will integrate the polynom where and return the Value
+     */
+    T intregrate(const T& a, const T& b) const
+    {
+        poly p(_degree + 1);
+        for (size_t i = 1; i <= _degree + 1; i++) {
+            if (_coeff[i - 1] == T{}) {
+                p[i] = T{};
+                continue;
+            }
+            p[i] = _coeff[i - 1] / static_cast<T>(i);
+        }
+        return p(b) - p(a);
+    }
 };
 } // namespace poly

@@ -17,5 +17,7 @@ int main(void)
     }
     std::println("{} ", p);
 
+    std::println("{} ", p.intregrate(2., 10.));
+
     return 0;
 }
