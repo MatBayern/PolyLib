@@ -39,17 +39,14 @@ public:
         }
 
         std::vector<poly<T>> LagrangePolynomials;
-        std::println("anfang von langrage polys");
         for (size_t i = 0; i < this->_points.size(); i++) {
             auto tmpP = getLagrange(this->_points, i);
             LagrangePolynomials.push_back(std::move(tmpP));
         }
-        std::println("Fertig mit langrage polys");
         poly<T> p = LagrangePolynomials[0] * this->_points[0].second;
         for (size_t i = 1; i < LagrangePolynomials.size(); i++) {
             p = p + (LagrangePolynomials[i] * this->_points[i].second);
         }
-        std::println("Fertig mit fertig mit summe polys");
 
         return p;
     }
