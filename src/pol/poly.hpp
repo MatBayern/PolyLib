@@ -12,8 +12,8 @@ concept Arithmetic = requires(T a, T b) {
         -> std::convertible_to<T>;
     { a - b }
         -> std::convertible_to<T>;
-    { a* b }
-    -> std::convertible_to<T>;
+    { a * b }
+        -> std::convertible_to<T>;
     { -a }
         -> std::convertible_to<T>;
     { a == b } -> std::convertible_to<bool>;
@@ -29,6 +29,7 @@ private:
 
 public:
     poly(size_t degree) : _degree(degree), _coeff(degree + 1) {};
+    poly(std::initializer_list<T> l) : _degree(l.size() - 1), _coeff(l) {};
     ~poly() = default;
     poly() = default;
     /**
@@ -83,6 +84,28 @@ public:
                 T tmp = _coeff[i] * other[j];
                 result[i + j] = result[i + j] + tmp;
             }
+        }
+        return result;
+    }
+    /**
+     *
+     * Operator for Scalar Multiplaktion
+     */
+    poly<T> operator*(const T& other) const
+    {
+        poly<T> result(*this);
+        for (size_t i = 0; i <= _degree; i++) {
+            result[i] = result[i] * other;
+        }
+        return result;
+    }
+
+    poly<T> operator/(const T& other) const
+    {
+        poly<T> result(*this);
+        for (size_t i = 0; i <= _degree; i++) {
+
+            result[i] = result[i] / other;
         }
         return result;
     }

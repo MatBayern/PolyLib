@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set specific compiler paths
-set(CMAKE_CXX_COMPILER "/usr/bin/g++-14")
+set(CMAKE_CXX_COMPILER "/opt/homebrew/bin/g++-14")
 
 # Project name and language
 project(PolynomialProject CXX)
@@ -30,4 +30,5 @@ add_executable(polynomial_app ${SOURCES})
 target_include_directories(polynomial_app PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/pol
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/interpolate
 )

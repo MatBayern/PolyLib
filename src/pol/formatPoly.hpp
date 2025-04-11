@@ -1,9 +1,9 @@
 #pragma once
+#include "poly.hpp"
 #include <cmath>
 #include <format>
 #include <iomanip>
 #include <iostream>
-#include <poly.hpp>
 #include <vector>
 
 template <poly::Arithmetic T>
