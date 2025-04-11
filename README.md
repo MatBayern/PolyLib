@@ -37,7 +37,7 @@ p2 + p3 // 5 + 7x + 8x²
 p3 == p3 // true
 p2 * p3 // 4 + 15x + 22x^2 + 16x^3 
 4 * p3 // 16 + 8x
-p2 == p4 // flase because the types are diffrent!
+p2 == p4 // false because the types are diffrent!
 ```
 Check out the poly.cpp file for more examples.
 Have fun! 🎉
