@@ -33,7 +33,7 @@ poly::poly<double> p4({4, 7, 8});
 poly::poly<std::complex<double>> p5; // Zero polynomial
 // Utils
 std::println("{} ", p2); // Will print 4 + 9x + 8x^2
-p2 + p3 // 5 + 7x + 8x²
+p2 + p3 // 5 + 9x + 8x²
 p3 == p3 // true
 p2 * p3 // 4 + 15x + 22x^2 + 16x^3 
 4 * p3 // 16 + 8x
