@@ -29,6 +29,9 @@ struct std::formatter<poly::poly<T>, char>
         auto out = ctx.out();
         bool first = true;
         std::stringstream ss;
+        if(obj.getDegree() == 0){
+            return std::format_to(out, "0");
+        }
         for (std::size_t i = 0; i <= obj.getDegree(); i++) {
             const T& coef = obj[i];
 
