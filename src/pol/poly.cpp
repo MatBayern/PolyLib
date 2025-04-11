@@ -27,7 +27,7 @@ int main(void)
     // p = p * p2;
     for (size_t i = 0; i < p.getDegree() + 1; i++) {
     }
-    std::println("{} ", p3 * p2);
+    std::println("{} ", p3 + p2);
   
 
     // std::println("{} ", p.intregrate(2., 10.));
