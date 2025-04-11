@@ -2,7 +2,7 @@
 #include <complex>
 #include <print>
 #include "formatPoly.hpp"
-#include "../interpolate/laplace.hpp"
+#include "../interpolate/lagrange.hpp"
 int main(void)
 {
     poly::poly<double> p(3);
