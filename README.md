@@ -1,6 +1,6 @@
 # PolyLib
 
-A simple and generic C++ polynomial library.
+A simple and generic C++23 polynomial library.
 
 ## Usage
 
@@ -28,7 +28,9 @@ A{1}    // should yield the multiplicative identity (typically 1)
 ```C++
 poly::poly<double> p(3); // Create a polynomial of degree 3
 poly::poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
-poly::poly<int> p3; // Zero polynomial
+poly::poly<std::complex<double>> p3; p3; // Zero polynomial
+// Utils
+std::println("{} ", p2); // Will print 4 + 7x + 8x^2 
 
 ```
 Check out the poly.cpp file for more examples.
