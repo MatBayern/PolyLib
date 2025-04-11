@@ -7,9 +7,11 @@
 
 int main(void)
 {
-    poly::poly<double> p(3);
-    poly::poly<int> p2({4, 7, 8});
-    poly::poly<std::complex<double>> p3;
+    poly::poly<double> p(3); // Create a polynomial of degree 3
+    poly::poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
+    poly::poly<int> p3({1, 2}); // Represents 4 + 2x
+    poly::poly<double> p4({4, 7, 8});
+    poly::poly<std::complex<double>> p5;
     poly::laplace<double> l1;
     poly::newton<int> n1;
 
@@ -25,7 +27,7 @@ int main(void)
     // p = p * p2;
     for (size_t i = 0; i < p.getDegree() + 1; i++) {
     }
-    std::println("{} ", p3.getDegree());
+    std::println("{} ", p3 * p2);
   
 
     // std::println("{} ", p.intregrate(2., 10.));

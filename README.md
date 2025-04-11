@@ -28,10 +28,16 @@ A{1}    // should yield the multiplicative identity (typically 1)
 ```C++
 poly::poly<double> p(3); // Create a polynomial of degree 3
 poly::poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
-poly::poly<std::complex<double>> p3; // Zero polynomial
+poly::poly<int> p3({1, 2}); // Represents 4 + 2x
+poly::poly<double> p4({4, 7, 8});
+poly::poly<std::complex<double>> p5; // Zero polynomial
 // Utils
-std::println("{} ", p2); // Will print 4 + 7x + 8x^2 
-
+std::println("{} ", p2); // Will print 4 + 9x + 8x^2
+p2 + p3 // 5 + 7x + 8x²
+p3 == p3 // true
+p2 * p3 // 4 + 15x + 22x^2 + 16x^3 
+4 * p3 // 16 + 8x
+p2 == p4 // flase because the types are diffrent!
 ```
 Check out the poly.cpp file for more examples.
 Have fun! 🎉
