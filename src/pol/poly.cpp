@@ -18,12 +18,12 @@ int main(void)
         l1.addPoint(gen(), gen());
     }
     std::println("Added Points");
-    auto p4 = l1.getInterpolationPolynom();
+    // auto p4 = l1.getInterpolationPolynom();
 
     // p = p * p2;
     for (size_t i = 0; i < p.getDegree() + 1; i++) {
     }
-    std::println("{} ", p4);
+    std::println("{} ", p3);
 
     // std::println("{} ", p.intregrate(2., 10.));
 
