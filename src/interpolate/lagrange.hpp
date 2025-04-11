@@ -34,7 +34,7 @@ private:
     }
 
 public:
-    laplace() {};
+    laplace() = default;
 
     poly<T> getInterpolationPolynom() const override
     {
