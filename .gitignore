@@ -30,4 +30,7 @@
 *.exe
 *.out
 *.app
+# Coustum
+polyLib.cpp
 Build/
+.vscode
