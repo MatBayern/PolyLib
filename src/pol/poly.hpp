@@ -24,7 +24,7 @@ class poly
 {
 
 private:
-    size_t _degree;
+    size_t _degree = 0;
     std::vector<T> _coeff;
 
 public:
