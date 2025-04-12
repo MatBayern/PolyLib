@@ -16,7 +16,7 @@ private:
         poly<T> result({T(1)});
         // std::println("Call to get Lang");
         for (size_t j = 0; j < points.size(); j++) {
-            if (j == idx) {
+            if (j == idx)[[unlikely]] {
                 continue; // Skip the current index
             }
 
