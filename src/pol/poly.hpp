@@ -14,6 +14,8 @@ concept Arithmetic = requires(T a, T b) {
         -> std::convertible_to<T>;
     { a * b }
         -> std::convertible_to<T>;
+    { a / b }
+        -> std::convertible_to<T>;
     { -a }
         -> std::convertible_to<T>;
     { a == b } -> std::convertible_to<bool>;
