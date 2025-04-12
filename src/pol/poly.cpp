@@ -28,6 +28,10 @@ int main(void)
     for (size_t i = 0; i < p.getDegree() + 1; i++) {
     }
     std::println("{} ", p3 + p2);
+    std::println("{} ", p4);
+    p4.derivative();
+    std::println("{} ", p4);
+
   
 
     // std::println("{} ", p.intregrate(2., 10.));

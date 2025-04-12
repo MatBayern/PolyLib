@@ -41,6 +41,7 @@ p2 == p4 // false because the types are diffrent!
 p2[1] // returns 7
 p2[0] // returns 4
 p3(1) // evaluates to 6 using Horner's scheme
+p4.derivative(); // evaluates to 7 + 16x 
 ```
 Check out the poly.cpp file for more examples.
 Have fun! 🎉

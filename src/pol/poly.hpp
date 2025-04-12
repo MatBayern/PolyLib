@@ -157,9 +157,12 @@ public:
      */
     void derivative() noexcept
     {
-        for (size_t i = 1; i < _degree; i++) {
-            _coeff[i - 1] = _coeff[i] * i;
+        std::vector<T> tmp;
+        tmp.resize(_degree);
+        for (size_t i = 1; i <= _degree; i++) {
+            tmp[i - 1] = _coeff[i] * i;
         }
+        _coeff = std::move(tmp);
         --_degree;
     }
     /**
