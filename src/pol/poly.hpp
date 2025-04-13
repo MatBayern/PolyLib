@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <concepts>
+#include <iterator>
 #include <print>
 #include <stdexcept>
 #include <utility>
@@ -26,18 +27,30 @@ concept Arithmetic = requires(T a, T b) {
 };
 
 template <Arithmetic T>
-class poly
+class Poly
 {
 
 private:
     size_t _degree = 0;
-    std::vector<T> _coeff;
+    std::vector<T> _coefficent;
 
 public:
-    poly(size_t degree) : _degree(degree), _coeff(degree + 1) {};
-    poly(std::initializer_list<T> l) : _degree(l.size() - 1), _coeff(l) {};
-    ~poly() = default;
-    poly() = default;
+    explicit Poly(size_t degree) : _degree(degree), _coefficent(degree + 1) {};
+    Poly(std::initializer_list<T> l) : _degree(l.size() - 1), _coefficent(l) {};
+    explicit Poly(std::vector<T> vec) : _degree(vec.size() - 1), _coefficent(vec) {};
+
+    template <std::forward_iterator Iterator>
+    Poly(Iterator begin, Iterator end) : _degree(std::distance(begin, end) - 1), _coefficent(std::distance(begin, end))
+    {
+        std::size_t n = 0;
+        for (auto it = begin; it != end; ++it) {
+            _coefficent[n] = *it;
+            n++;
+        }
+    };
+
+    ~Poly() = default;
+    Poly() = default;
     /**
      *
      *  Operator Overloading
@@ -48,7 +61,7 @@ public:
         if (index >= _degree + 1) {
             throw std::runtime_error("invalid access");
         }
-        return _coeff[index];
+        return _coefficent[index];
     }
 
     T operator[](const size_t& index) const
@@ -56,38 +69,38 @@ public:
         if (index >= _degree + 1) {
             throw std::runtime_error("invalid access");
         }
-        return _coeff[index];
+        return _coefficent[index];
     }
 
     T operator()(const T& x) const
     {
-        T result = _coeff[_degree];
+        T result = _coefficent[_degree];
         for (int i = _degree - 1; i >= 0; i--) {
-            result = result * x + _coeff[i]; // using Horner schema
+            result = result * x + _coefficent[i]; // using Horner schema
         }
         return result;
     }
 
-    poly<T> operator+(const poly<T>& other) const
+    Poly<T> operator+(const Poly<T>& other) const
     {
-        poly<T> result(std::max(_degree, other._degree)); // slect the maximum degree of the resulting polynomial
+        Poly<T> result(std::max(_degree, other._degree)); // slect the maximum degree of the resulting polynomial
         for (size_t i = 0; i <= std::max(_degree, other._degree); i++) {
-            result[i] = (i <= _degree ? _coeff[i] : T{}) + (i <= other._degree ? other._coeff[i] : T{});
+            result[i] = (i <= _degree ? _coefficent[i] : T{}) + (i <= other._degree ? other._coefficent[i] : T{});
         }
         return result;
     }
 
-    poly<T> operator-(const poly<T>& other) const
+    Poly<T> operator-(const Poly<T>& other) const
     {
         return *this + (-other);
     }
 
-    poly<T> operator*(const poly<T>& other) const
+    Poly<T> operator*(const Poly<T>& other) const
     {
-        poly<T> result(_degree + other._degree);
+        Poly<T> result(_degree + other._degree);
         for (size_t i = 0; i <= _degree; i++) {
             for (size_t j = 0; j <= other.getDegree(); j++) {
-                T tmp = _coeff[i] * other[j];
+                T tmp = _coefficent[i] * other[j];
                 result[i + j] = result[i + j] + tmp;
             }
         }
@@ -97,18 +110,18 @@ public:
      *
      * Operator for Scalar Multiplaktion
      */
-    poly<T> operator*(const T& other) const
+    Poly<T> operator*(const T& other) const
     {
-        poly<T> result(*this);
+        Poly<T> result(*this);
         for (size_t i = 0; i <= _degree; i++) {
             result[i] = result[i] * other;
         }
         return result;
     }
 
-    poly<T> operator/(const T& other) const
+    Poly<T> operator/(const T& other) const
     {
-        poly<T> result(*this);
+        Poly<T> result(*this);
         for (size_t i = 0; i <= _degree; i++) {
 
             result[i] = result[i] / other;
@@ -116,28 +129,28 @@ public:
         return result;
     }
 
-    poly<T> operator-() const
+    Poly<T> operator-() const
     {
-        poly<T> result(_degree);
+        Poly<T> result(_degree);
         for (size_t i = 0; i <= _degree; i++) {
-            result[i] = -_coeff[i];
+            result[i] = -_coefficent[i];
         }
         return result;
     }
 
     template <Arithmetic U>
-    bool operator==(const poly<U>& /**/) const
+    bool operator==(const Poly<U>& /**/) const
     {
         return false;
     }
 
-    bool operator==(const poly<T>& other) const
+    bool operator==(const Poly<T>& other) const
     {
         if (_degree != other.getDegree()) {
             return false;
         }
         for (size_t i = 0; i <= _degree; i++) {
-            if (_coeff[i] != other[i]) {
+            if (_coefficent[i] != other[i]) {
                 return false;
             }
         }
@@ -167,7 +180,7 @@ public:
      * @short this will take the derivative of this polynomial
      *
      */
-    void derivative() noexcept
+    void derivative()
     {
         if (_degree == 0) {
             return;
@@ -176,9 +189,9 @@ public:
         std::vector<T> tmp;
         tmp.resize(_degree);
         for (size_t i = 1; i <= _degree; i++) {
-            tmp[i - 1] = _coeff[i] * i;
+            tmp[i - 1] = _coefficent[i] * i;
         }
-        _coeff = std::move(tmp);
+        _coefficent = std::move(tmp);
         --_degree;
     }
     /**
@@ -193,13 +206,13 @@ public:
             return T{}; // return 0 if upper and lower bound are the same
         }
 
-        poly p(_degree + 1);
+        Poly p(_degree + 1);
         for (size_t i = 1; i <= _degree + 1; i++) {
-            if (_coeff[i - 1] == T{}) {
+            if (_coefficent[i - 1] == T{}) {
                 p[i] = T{};
                 continue;
             }
-            p[i] = _coeff[i - 1] / static_cast<T>(i);
+            p[i] = _coefficent[i - 1] / static_cast<T>(i);
         }
         return p(b) - p(a);
     }

@@ -7,15 +7,15 @@
 namespace poly {
 
 template <Arithmetic T>
-class interpolate
+class Interpolate
 {
 protected:
     std::vector<std::pair<T, T>> _points;
 
 public:
-    interpolate() = default;
-    virtual ~interpolate() = default;
-    virtual poly<T> getInterpolationPolynom() const = 0;
+    Interpolate() = default;
+    virtual ~Interpolate() = default;
+    virtual Poly<T> getInterpolationPolynom() const = 0;
 
     std::vector<std::pair<T, T>>& getPoints() const noexcept
     {

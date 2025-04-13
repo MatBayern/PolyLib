@@ -8,7 +8,7 @@
 #include <vector>
 
 template <poly::Arithmetic T>
-struct std::formatter<poly::poly<T>, char>
+struct std::formatter<poly::Poly<T>, char>
 {
     template <class ParseContext>
     constexpr ParseContext::iterator parse(ParseContext& ctx)
@@ -25,11 +25,10 @@ struct std::formatter<poly::poly<T>, char>
     }
 
     template <typename FmtContext>
-    FmtContext::iterator format(const poly::poly<T>& obj, FmtContext& ctx) const
+    FmtContext::iterator format(const poly::Poly<T>& obj, FmtContext& ctx) const
     {
         auto out = ctx.out();
         bool first = true;
-        std::stringstream ss;
         if (obj.getDegree() == 0) {
             return std::format_to(out, "0");
         }

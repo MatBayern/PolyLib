@@ -1,12 +1,23 @@
 ---
 Checks: 'bugprone-*,llvm-namespace-comment,misc-definitions-in-headers,misc-redundant-expression,modernize-*,performance-*,readability-misleading-indentation,readability-identifier-naming,cppcoreguidlines-macro-usage,google-readability-casting,-modernize-avoid-c-arrays,-modernize-use-auto,-modernize-use-nodiscard,-modernize-use-trailing-return-type,-modernize-use-default-member-init,-clang-diagnostic-unqualified-std-cast-call,-bugprone-narrowing-conversions,-bugprone-easily-swappable-parameters,-modernize-macro-to-enum,google-*,-google-build-using-namespace,-google-readability-braces-around-statements,portability-restrict-system-includes'
 WarningsAsErrors: '*'
+
 CheckOptions:
-  readability-identifier-naming.ClassCase: CamelCase
-  readability-identifier-naming.ConstantCase: UPPER_CASE
-  readability-identifier-naming.EnumCase: CamelCase
-  readability-identifier-naming.FunctionCase: camelBack
-  readability-identifier-naming.LocalVariableCase: camelBack
-  readability-identifier-naming.MemberCase: camelBack
-  readability-identifier-naming.NamespaceCase: lower_case
-  portability-restrict-system-includes.Includes: '*'
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.LocalVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.MemberPrefix
+    value: '_'
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+  - key: portability-restrict-system-includes.Includes
+    value: '*'

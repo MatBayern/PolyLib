@@ -7,13 +7,13 @@
 // NOLINTBEGIN
 int main() noexcept
 {
-    poly::poly<double> p(3); // Create a polynomial of degree 3
-    poly::poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
-    poly::poly<int> p3({1, 2}); // Represents 4 + 2x
-    poly::poly<double> p4({4, 7, 8});
-    poly::poly<std::complex<double>> p5;
-    poly::lagrange<double> l1;
-    poly::newton<int> n1;
+    poly::Poly<double> p(3); // Create a polynomial of degree 3
+    poly::Poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
+    poly::Poly<int> p3({1, 2}); // Represents 4 + 2x
+    poly::Poly<double> p4({4, 7, 8});
+    poly::Poly<std::complex<double>> p5;
+    poly::Lagrange<double> l1;
+    poly::Newton<int> n1;
 
     std::mt19937 gen(42); // Mersenne Twister random number engine
 

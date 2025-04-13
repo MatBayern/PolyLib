@@ -7,14 +7,14 @@
 #include <vector>
 namespace poly {
 template <Arithmetic T>
-class newton final : public interpolate<T>
+class Newton final : public Interpolate<T>
 {
 private:
 public:
-    newton() = default;
-    poly<T> getInterpolationPolynom() const override
+    Newton() = default;
+    Poly<T> getInterpolationPolynom() const override
     {
-        return poly<T>();
+        return Poly<T>();
     }
 };
 
