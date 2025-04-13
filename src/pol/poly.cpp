@@ -4,8 +4,8 @@
 #include <complex>
 #include <print>
 #include <random>
-
-int main(void)
+// NOLINTBEGIN
+int main() noexcept
 {
     poly::poly<double> p(3); // Create a polynomial of degree 3
     poly::poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
@@ -32,9 +32,8 @@ int main(void)
     p4.derivative();
     std::println("{} ", p4);
 
-  
-
-    // std::println("{} ", p.intregrate(2., 10.));
+      // std::println("{} ", p.intregrate(2., 10.));
 
     return 0;
 }
+// NOLINTEND

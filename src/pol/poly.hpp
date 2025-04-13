@@ -189,11 +189,10 @@ public:
      */
     T intregrate(const T& a, const T& b) const
     {
-        if (a == b)
-        {
+        if (a == b) {
             return T{}; // return 0 if upper and lower bound are the same
         }
-        
+
         poly p(_degree + 1);
         for (size_t i = 1; i <= _degree + 1; i++) {
             if (_coeff[i - 1] == T{}) {
