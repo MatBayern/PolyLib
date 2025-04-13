@@ -41,7 +41,14 @@ p2 == p4 // false because the types are diffrent!
 p2[1] // returns 7
 p2[0] // returns 4
 p3(1) // evaluates to 6 using Horner's scheme
-p4.derivative(); // evaluates to 7 + 16x 
+p4.derivative(); // evaluates to 7 + 16x
+// Constructions
+std::list<double> l1 = {4, 7, 8};
+poly::Poly<double> p5{v1.begin(), v1.end()}; // at least a std::forward_iterator is required
+
+std::list<double> v1 = {4, 7, 8};
+poly::Poly<double> p6{v1}; // copys the vector
+poly::Poly<double> p7{std::move(v1)}; // moves the vector 
 ```
 Check out the poly.cpp file for more examples.
 Have fun! 🎉
