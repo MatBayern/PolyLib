@@ -17,6 +17,7 @@ PolyLib is designed to be as generic as possible. However, your coefficient type
 - `-` (including unary `-`)
 - `/`
 - `==`
+
 Additionally, your type must provide two constructors:
 ```cpp
 A{}     // should yield the additive identity (typically 0)
