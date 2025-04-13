@@ -11,7 +11,7 @@ int main() noexcept
     poly::Poly<int> p2({4, 7, 8}); // Represents 4 + 7x + 8x²
     poly::Poly<int> p3({1, 2}); // Represents 4 + 2x
     poly::Poly<double> p4({4, 7, 8});
-    poly::Poly<std::complex<double>> p5;
+
     poly::Lagrange<double> l1;
     poly::Newton<int> n1;
 
@@ -27,12 +27,13 @@ int main() noexcept
     // p = p * p2;
     for (size_t i = 0; i < p.getDegree() + 1; i++) {
     }
-    std::println("{} ", p3 + p2);
-    std::println("{} ", p4);
-    p4.derivative();
     std::println("{} ", p4);
 
-      // std::println("{} ", p.intregrate(2., 10.));
+    std::vector<double> v1 = {4, 7, 8};
+    poly::Poly<double> p5{std::move(v1)};
+
+
+    std::println("{} ", p5);
 
     return 0;
 }

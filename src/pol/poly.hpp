@@ -38,6 +38,7 @@ public:
     explicit Poly(size_t degree) : _degree(degree), _coefficent(degree + 1) {};
     Poly(std::initializer_list<T> l) : _degree(l.size() - 1), _coefficent(l) {};
     explicit Poly(const std::vector<T>& vec) : _degree(vec.size() - 1), _coefficent(vec) {};
+    explicit Poly(std::vector<T>&& vec) : _degree(vec.size() - 1), _coefficent(std::move(vec)) {};
 
     template <std::forward_iterator Iterator>
     Poly(Iterator begin, Iterator end) : _degree(std::distance(begin, end) - 1), _coefficent(std::distance(begin, end))
