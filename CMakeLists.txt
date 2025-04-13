@@ -10,7 +10,7 @@ project(PolynomialProject CXX)
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-format-style=file")
+set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-format-style=file;-config=")
 
 
 # Add compiler flags
