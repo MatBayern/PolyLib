@@ -6,6 +6,10 @@
 #include <utility>
 #include <vector>
 namespace poly {
+
+/**
+ *  @short his concept ensures that the necessary arithmetic operations are defined.
+ */
 template <typename T>
 concept Arithmetic = requires(T a, T b) {
     { a + b }
@@ -59,14 +63,14 @@ public:
     {
         T result = _coeff[_degree];
         for (int i = _degree - 1; i >= 0; i--) {
-            result = result * x + _coeff[i];
+            result = result * x + _coeff[i]; // using Horner schema
         }
         return result;
     }
 
     poly<T> operator+(const poly<T>& other) const
     {
-        poly<T> result(std::max(_degree, other._degree));
+        poly<T> result(std::max(_degree, other._degree)); // slect the maximum degree of the resulting polynomial
         for (size_t i = 0; i <= std::max(_degree, other._degree); i++) {
             result[i] = (i <= _degree ? _coeff[i] : T{}) + (i <= other._degree ? other._coeff[i] : T{});
         }
@@ -144,6 +148,10 @@ public:
      *  Getters and setters
      *
      */
+    /**
+     *
+     * @short This will return the degree of the polynom
+     */
     size_t getDegree() const noexcept
     {
         return _degree;
@@ -155,17 +163,16 @@ public:
      *  derivative
      *
      */
-     /**
+    /**
      * @short this will take the derivative of this polynomial
-     * 
+     *
      */
     void derivative() noexcept
     {
-        if (_degree == 0)
-        {
+        if (_degree == 0) {
             return;
         }
-        
+
         std::vector<T> tmp;
         tmp.resize(_degree);
         for (size_t i = 1; i <= _degree; i++) {
@@ -178,10 +185,15 @@ public:
      * @short this will integrate the polynom and return the Value
      * @param[in] a lower bound
      * @param[in] b upper bound
-     * 
+     *
      */
     T intregrate(const T& a, const T& b) const
     {
+        if (a == b)
+        {
+            return T{}; // return 0 if upper and lower bound are the same
+        }
+        
         poly p(_degree + 1);
         for (size_t i = 1; i <= _degree + 1; i++) {
             if (_coeff[i - 1] == T{}) {

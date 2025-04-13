@@ -12,7 +12,7 @@ int main(void)
     poly::poly<int> p3({1, 2}); // Represents 4 + 2x
     poly::poly<double> p4({4, 7, 8});
     poly::poly<std::complex<double>> p5;
-    poly::laplace<double> l1;
+    poly::lagrange<double> l1;
     poly::newton<int> n1;
 
     std::mt19937 gen(42); // Mersenne Twister random number engine
