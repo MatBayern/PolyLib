@@ -46,9 +46,9 @@ p4.derivative(); // evaluates to 7 + 16x
 std::list<double> l1 = {4, 7, 8};
 poly::Poly<double> p5{v1.begin(), v1.end()}; // at least a std::forward_iterator is required
 
-std::list<double> v1 = {4, 7, 8};
+std::vector<double> v1 = {4, 7, 8};
 poly::Poly<double> p6{v1}; // copys the vector
 poly::Poly<double> p7{std::move(v1)}; // moves the vector 
 ```
-Check out the poly.cpp file for more examples.
+Check out the `poly.cpp` file for more examples.
 Have fun! 🎉
