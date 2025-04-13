@@ -155,8 +155,17 @@ public:
      *  derivative
      *
      */
+     /**
+     * @short this will take the derivative of this polynomial
+     * 
+     */
     void derivative() noexcept
     {
+        if (_degree == 0)
+        {
+            return;
+        }
+        
         std::vector<T> tmp;
         tmp.resize(_degree);
         for (size_t i = 1; i <= _degree; i++) {
@@ -166,7 +175,10 @@ public:
         --_degree;
     }
     /**
-     * @short this will integrate the polynom where and return the Value
+     * @short this will integrate the polynom and return the Value
+     * @param[in] a lower bound
+     * @param[in] b upper bound
+     * 
      */
     T intregrate(const T& a, const T& b) const
     {
