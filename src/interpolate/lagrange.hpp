@@ -46,7 +46,7 @@ public:
      *  This will return the Interpolation Polynom for the given points using lagrange method.
      *  @param[out] polynom The interpolation polynom for the Type T
      */
-    Poly<T> getInterpolationPolynom() const override
+    Poly<T> getInterpolationPolynom() override
     {
         if (this->_points.empty()) {
             return Poly<T>(); // Return empty polynomial if no points

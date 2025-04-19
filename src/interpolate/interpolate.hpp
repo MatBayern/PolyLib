@@ -15,7 +15,7 @@ protected:
 public:
     Interpolate() = default;
     virtual ~Interpolate() = default;
-    virtual Poly<T> getInterpolationPolynom() const = 0;
+    virtual Poly<T> getInterpolationPolynom() = 0;
 
     std::vector<std::pair<T, T>>& getPoints() const noexcept
     {
