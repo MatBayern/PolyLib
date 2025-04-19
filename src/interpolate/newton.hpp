@@ -71,10 +71,9 @@ public:
      */
     Poly<T> getInterpolationPolynom() override
     {
-        
-        if (this->_points.size())
-        {
-            return Poly<T>{}; // No points were added
+
+        if (this->_points.size() == 0) {
+            return Poly<T>{}; // No points added
         }
         // Incase new points are added
         // we need to resize the matrix
@@ -84,8 +83,13 @@ public:
             for (size_t i = 0; i < this->_points.size(); i++) {
                 for (size_t j = 0; j < this->_points.size(); j++) {
                     if (i < _size && j < _size) {
-                        // Copy existing matrix values
-                        newMatrix[j + (this->_points.size() * i)] = _matrix[j + (_size * i)];
+                        // Copy or Move existing matrix values
+                        if constexpr (std::is_move_constructible_v<T>) {
+                            newMatrix[j + (this->_points.size() * i)] = std::move(_matrix[j + (_size * i)]);
+                        } else {
+                            newMatrix[j + (this->_points.size() * i)] = _matrix[j + (_size * i)];
+                        }
+
                     } else if (i == 0) {
                         // Initialize first row with y values
                         newMatrix[j] = this->_points[j].second;
