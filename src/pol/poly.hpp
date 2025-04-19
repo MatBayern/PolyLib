@@ -9,7 +9,7 @@
 namespace poly {
 
 /**
- *  @short his concept ensures that the necessary arithmetic operations are defined.
+ *  @short This concept ensures that the necessary arithmetic operations are defined.
  */
 template <typename T>
 concept Arithmetic = requires(T a, T b) {
@@ -109,7 +109,7 @@ public:
     }
     /**
      *
-     * Operator for Scalar Multiplaktion
+     * @short Operator for Scalar Multiplaktion
      */
     Poly<T> operator*(const T& other) const
     {
@@ -140,7 +140,7 @@ public:
     }
 
     template <Arithmetic U>
-    bool operator==(const Poly<U>& /**/) const
+    bool operator==(const Poly<U>& /**/) const noexcept
     {
         return false;
     }
