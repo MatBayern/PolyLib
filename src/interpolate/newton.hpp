@@ -63,16 +63,33 @@ private:
         return coefficients;
     }
 
+    /**
+     *  @short Construct the polynomial using the coefficients
+     *  @param[in] COEFFICIENTS a list of the COEFFICIENTS for the poylnominal to build
+     */
+    Poly<T> generatePolyFromCoeffiecnts(const std::vector<T>& COEFFICIENTS) const
+    {
+        Poly<T> result({COEFFICIENTS[0]});
+        for (std::size_t i = 1; i < _size; ++i) {
+            Poly<T> term({T(1)});
+            for (std::size_t j = 0; j < i; ++j) {
+                term = term * Poly<T>({-this->_points[j].first, T(1)});
+            }
+            result = result + (term * COEFFICIENTS[i]);
+        }
+        return result;
+    }
+
 public:
     Newton() = default;
     /**
-     * @short This build a newton polynomial from the given points. Watchout this assumes that the points are only increades and not modiyfed!
-     *  if you modify any points you have to reconstruct a new Object!
+     * @short This build a newton polynomial from the given points. Watchout this assumes that the points are only increaes and not modiyfed!
+     *  if you modify any points you have to construct a new Object!
      */
     Poly<T> getInterpolationPolynom() override
     {
 
-        if (this->_points.size() == 0) {
+        if (this->_points.empty()) {
             return Poly<T>{}; // No points added
         }
         // Incase new points are added
@@ -84,7 +101,7 @@ public:
                 for (size_t j = 0; j < this->_points.size(); j++) {
                     if (i < _size && j < _size) {
                         // Copy or Move existing matrix values
-                        if constexpr (std::is_move_constructible_v<T>) {
+                        if constexpr (std::is_move_assignable_v<T>) {
                             newMatrix[j + (this->_points.size() * i)] = std::move(_matrix[j + (_size * i)]);
                         } else {
                             newMatrix[j + (this->_points.size() * i)] = _matrix[j + (_size * i)];
@@ -102,19 +119,8 @@ public:
         }
 
         const std::vector<T> COEFFICIENTS = returnCoefficients();
-        /**
-         *  Construct the polynomial using the coefficients
-         */
-        Poly<T> result({COEFFICIENTS[0]});
-        for (std::size_t i = 1; i < _size; ++i) {
-            Poly<T> term({T(1)});
-            for (std::size_t j = 0; j < i; ++j) {
-                term = term * Poly<T>({-this->_points[j].first, T(1)});
-            }
-            result = result + (term * COEFFICIENTS[i]);
-        }
 
-        return result;
+        return generatePolyFromCoeffiecnts(COEFFICIENTS);
     }
 };
 
