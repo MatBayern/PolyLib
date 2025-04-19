@@ -2,6 +2,7 @@
 #include "../polyLib.hpp"
 #include "formatPoly.hpp"
 #include <complex>
+#include <list>
 #include <print>
 #include <random>
 // NOLINTBEGIN
@@ -13,27 +14,50 @@ int main() noexcept
     poly::Poly<double> p4({4, 7, 8});
 
     poly::Lagrange<double> l1;
-    poly::Newton<int> n1;
+    poly::Newton<double> n1;
 
     std::mt19937 gen(42); // Mersenne Twister random number engine
 
-    for (size_t i = 0; i < 1000; i++) {
-        l1.addPoint(gen(), gen());
-    }
-    n1.addPoint(1, 1);
+    // for (size_t i = 0; i < 1000; i++) {
+    //     const auto x  = gen();
+    //     const auto y = gen();
+    //     l1.addPoint(x,y);
+    //     n1.addPoint(x,y);
+
+    // }
+    n1.addPoint(1, 0);
+    n1.addPoint(2, 2);
+    n1.addPoint(3, 5);
+
+    l1.addPoint(1, 0);
+    l1.addPoint(2, 2);
+    l1.addPoint(3, 5);
     std::println("Added Points");
     // auto p4 = l1.getInterpolationPolynom();
 
     // p = p * p2;
     for (size_t i = 0; i < p.getDegree() + 1; i++) {
     }
-    std::println("{} ", p4);
+    // std::println("{} ", n1.getInterpolationPolynom());
+    // std::println("{} ", l1.getInterpolationPolynom());
 
-    std::vector<double> v1 = {4, 7, 8};
-    poly::Poly<double> p5{std::move(v1)};
+    // std::println("{} ", n1.getInterpolationPolynom());
+    //  std::println("{} ", l1.getInterpolationPolynom());
+    //  l1.addPoint(4, 100);
+    //  std::println("{} ", l1.getInterpolationPolynom());
+
+    std::println("{} ", n1.getInterpolationPolynom());
+    // n1.addPoint(4, 100);
+    // std::println("{} ", n1.getInterpolationPolynom());
+
+    std::list<double> list1 = {4, 7, 8, 2};
+    poly::Poly<double> p5{list1.begin(), list1.end()}; // at least a std::forward_iterator is required
 
 
     std::println("{} ", p5);
+    p5.derivative();
+    std::println("{} ", p5);
+
 
     return 0;
 }

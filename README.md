@@ -49,7 +49,23 @@ poly::Poly<double> p5{v1.begin(), v1.end()}; // at least a std::forward_iterator
 
 std::vector<double> v1 = {4, 7, 8};
 poly::Poly<double> p6{v1}; // copys the vector
-poly::Poly<double> p7{std::move(v1)}; // moves the vector 
+poly::Poly<double> p7{std::move(v1)}; // moves the vector
+
+
+// Interpolation
+// There are 2 interpolation Options Newton and Lagrange
+
+poly::Lagrange<double> Lagrange;
+poly::Newton<double> Newton; // When using newton you can add points without calculating the new coeffiecnts Matrix. But you cannot delete or modiy any points just add them
+
+Newton.addPoints(2.,4.) // Add a point to the list
+
+Newton.getInterpolationPolynom() // Will return the Polynom
+
+
+Lagrange.addPoints(2.,4.) // Add a point to the list
+
+Lagrange.getInterpolationPolynom() // Will return the Polynom
 ```
 Check out the `poly.cpp` file for more examples.
 Have fun! 🎉
