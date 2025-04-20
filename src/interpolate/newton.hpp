@@ -49,6 +49,11 @@ private:
         for (size_t i = 1; i < N; ++i) {
             for (size_t j = 0; j < N - i; ++j) {
                 size_t currentIdx = j + i * N;
+                if (_matrix[currentIdx] != T{})
+                {
+                    continue;
+                }
+                
                 size_t prevRowIdx = j + (i - 1) * N;
 
                 const T& xj = this->_points[j].first;
