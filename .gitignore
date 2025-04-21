@@ -33,5 +33,6 @@
 # Coustum
 polyLib.cpp
 Build/
+build/
 CMakeFiles
 .vscode
