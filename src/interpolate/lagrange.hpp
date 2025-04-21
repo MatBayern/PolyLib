@@ -82,7 +82,7 @@ public:
     }
     /**
      * @short This method let you chose if you want to calculate the Polynom in Parall or not!
-     * @param[in] par The falg to set
+     * @param[in] par The flag to set
      *
      */
     void setExecutionMode(const bool& par) noexcept
