@@ -93,7 +93,16 @@ public:
 
     Poly<T> operator-(const Poly<T>& other) const
     {
-        return *this + (-other);
+        Poly<T> tmp = *this + (-other);
+        const int N = tmp.getDegree();
+        for (int i = N; i >= 0; i--) {
+            if (tmp[i] != T{}) {
+                return tmp;
+            }
+            tmp._degree--;
+        }
+
+        return tmp;
     }
 
     Poly<T> operator*(const Poly<T>& other) const

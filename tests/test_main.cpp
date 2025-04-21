@@ -73,12 +73,27 @@ TEST(PolynomialTestOperator, Addition)
     }
 }
 
+TEST(PolynomialTestOperator, Addition2)
+{
+    poly::Poly<int> p1 = {1, 2, 3, 5};
+    poly::Poly<int> p2 = {1, 2, 3};
+
+    poly::Poly<int> pResult = {2, 4, 6, 5};
+
+    p1 = p1 + p2;
+
+    ASSERT_EQ(p1.getDegree(), pResult.getDegree());
+    for (size_t i = 0; i <= p1.getDegree(); i++) {
+        ASSERT_EQ(p1[i], pResult[i]);
+    }
+}
+
 TEST(PolynomialTestOperator, Subtraktion)
 {
     poly::Poly<int> p1 = {1, 2, 3, 5};
     poly::Poly<int> p2 = {2, 3, 4, 5};
 
-    poly::Poly<int> pResult = {1, 1, 1};
+    poly::Poly<int> pResult = {-1,- 1, -1};
 
     p1 = p1 - p2;
 
@@ -86,6 +101,15 @@ TEST(PolynomialTestOperator, Subtraktion)
     for (size_t i = 0; i <= p1.getDegree(); i++) {
         ASSERT_EQ(p1[i], pResult[i]);
     }
+}
+TEST(PolynomialTestOperator, Subtraktion2)
+{
+    poly::Poly<int> p1 = {1, 2, 3, 5};
+    poly::Poly<int> p2 = {1, 2, 3, 5};
+
+    p1 = p1 - p2;
+
+    ASSERT_EQ(p1.getDegree(), 0);
 }
 
 int main(int argc, char** argv)
