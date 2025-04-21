@@ -102,7 +102,7 @@ public:
             tmp._degree--;
         }
 
-        return tmp;
+        return Poly<T>{};
     }
 
     Poly<T> operator*(const Poly<T>& other) const

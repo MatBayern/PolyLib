@@ -112,6 +112,18 @@ TEST(PolynomialTestOperator, Subtraktion2)
     ASSERT_EQ(p1.getDegree(), 0);
 }
 
+TEST(PolynomialTestOperator, Subtraktion3)
+{
+    poly::Poly<int> p1 = {1, 2, 3, 5};
+    poly::Poly<int> p2 = {0, 2, 3, 5};
+
+    p1 = p1 - p2;
+
+    ASSERT_EQ(p1.getDegree(), 0);
+    ASSERT_EQ(p1[0], 1);
+
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
