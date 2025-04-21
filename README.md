@@ -67,5 +67,12 @@ Lagrange.addPoints(2.,4.) // Add a point to the list
 
 Lagrange.getInterpolationPolynom() // Will return the Polynom
 ```
-Check out the `poly.cpp` file for more examples.
+Check out the `main.cpp` file for more examples.
 Have fun! 🎉
+## Tests
+You can run the Gtests by using this commands in in the `PolyLib` folder:
+```bash
+mkdir build
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B build
+cd build && ctest
+```
