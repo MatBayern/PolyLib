@@ -33,7 +33,10 @@ int main()
     // l1.addPoint(1, 0);
     // l1.addPoint(2, 2);
     // l1.addPoint(3, 5);
-    std::println("Added Points");
+    poly::Poly<double> p8({1});
+    std::println("{}", p8);
+    std::println("{}", p8.getDegree());
+
     // auto p4 = l1.getInterpolationPolynom();
     auto start1 = std::chrono::high_resolution_clock::now();
     l1.getInterpolationPolynom();
