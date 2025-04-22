@@ -101,8 +101,9 @@ public:
             }
             tmp._degree--;
         }
+        tmp._coefficent.resize(tmp._degree + 1);
 
-        return Poly<T>{};
+        return tmp;
     }
 
     Poly<T> operator*(const Poly<T>& other) const
