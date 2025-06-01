@@ -2,10 +2,6 @@
 #include "poly.hpp"
 #include <cmath>
 #include <format>
-#include <iomanip>
-#include <iostream>
-#include <sstream>
-#include <vector>
 
 template <poly::Arithmetic T>
 struct std::formatter<poly::Poly<T>, char>

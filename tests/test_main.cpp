@@ -1,5 +1,4 @@
 #include "../src/polyLib.hpp"
-#include <cmath>
 #include <forward_list>
 #include <gtest/gtest.h>
 #include <vector>
@@ -93,7 +92,7 @@ TEST(PolynomialTestOperator, Subtraktion)
     poly::Poly<int> p1 = {1, 2, 3, 5};
     poly::Poly<int> p2 = {2, 3, 4, 5};
 
-    poly::Poly<int> pResult = {-1,- 1, -1};
+    poly::Poly<int> pResult = {-1, -1, -1};
 
     p1 = p1 - p2;
 
@@ -121,7 +120,6 @@ TEST(PolynomialTestOperator, Subtraktion3)
 
     ASSERT_EQ(p1.getDegree(), 0);
     ASSERT_EQ(p1[0], 1);
-
 }
 
 int main(int argc, char** argv)

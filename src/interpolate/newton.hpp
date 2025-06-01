@@ -2,7 +2,6 @@
 #include "../pol/poly.hpp"
 #include "interpolate.hpp"
 #include <algorithm>
-#include <execution>
 #include <print>
 #include <utility>
 #include <vector>

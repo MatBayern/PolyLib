@@ -2,21 +2,20 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Set specific compiler paths
-set(CMAKE_CXX_COMPILER "/opt/homebrew/bin/g++-14")
 
+message(STATUS "compiler: " ${CMAKE_CXX_COMPILER_ID})
 # Project name and language
 project(PolynomialProject CXX)
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 # Configure clang-tidy for our project files only
-set(CMAKE_CXX_CLANG_TIDY clang-tidy;
-  -header-filter=.;
-  -format-style=.clang-format;
-  -config-file=../.clang-tidy;
-)
+#set(CMAKE_CXX_CLANG_TIDY clang-tidy;
+#  -header-filter=.;
+#  -format-style=.clang-format;
+#  -config-file=../.clang-tidy;
+#)
 
 # Add compiler flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g")
@@ -56,6 +55,7 @@ FetchContent_Declare(
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE STRING "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Enable testing
@@ -84,7 +84,11 @@ target_include_directories(polynomial_tests PUBLIC
 )
 
 # Link test executable with GoogleTest
-target_link_libraries(polynomial_tests PRIVATE GTest::gtest GTest::gmock)
+target_link_libraries(polynomial_tests PRIVATE 
+  GTest::gtest_main  # This includes a main() function
+  GTest::gtest 
+  GTest::gmock
+)
 
 # Restore clang-tidy setting for our test executable (but not for the GoogleTest libraries)
 set_target_properties(polynomial_tests PROPERTIES CXX_CLANG_TIDY "${OLD_CMAKE_CXX_CLANG_TIDY}")

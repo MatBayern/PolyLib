@@ -45,7 +45,7 @@ int main()
     // std::println("{} ", n1.getInterpolationPolynom());
     //  std::println("{} ", l1.getInterpolationPolynom());
     //  l1.addPoint(4, 100);
-    //  std::println("{} ", l1.getInterpolationPolynom());
+    std::println("{} ", l1.getInterpolationPolynom());
 
     std::println("{} ", n1.getInterpolationPolynom());
     // n1.addPoint(4, 100);
