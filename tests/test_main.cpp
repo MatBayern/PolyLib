@@ -5,8 +5,8 @@
 
 TEST(PolynomialTestConstructor, empty)
 {
-    poly::Poly<double> p;
-    ASSERT_EQ(p.getDegree(), 0);
+    poly::Poly<int> p;
+    ASSERT_EQ(p.getDegree(), -1);
 }
 
 TEST(PolynomialTestConstructor, VectorCopy)
@@ -52,7 +52,7 @@ TEST(PolynomialTestConstructor, initializerList)
     poly::Poly<double> p = {1, 2, 3, 5};
 
     ASSERT_EQ(p.getDegree(), 3);
-    for (size_t i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
         ASSERT_DOUBLE_EQ(p[i], coef[i]);
     }
 }
@@ -67,7 +67,7 @@ TEST(PolynomialTestOperator, Addition)
     p1 = p1 + p2;
 
     ASSERT_EQ(p1.getDegree(), pResult.getDegree());
-    for (size_t i = 0; i <= p1.getDegree(); i++) {
+    for (int i = 0; i <= p1.getDegree(); i++) {
         ASSERT_EQ(p1[i], pResult[i]);
     }
 }
@@ -82,7 +82,7 @@ TEST(PolynomialTestOperator, Addition2)
     p1 = p1 + p2;
 
     ASSERT_EQ(p1.getDegree(), pResult.getDegree());
-    for (size_t i = 0; i <= p1.getDegree(); i++) {
+    for (int i = 0; i <= p1.getDegree(); i++) {
         ASSERT_EQ(p1[i], pResult[i]);
     }
 }
@@ -97,7 +97,7 @@ TEST(PolynomialTestOperator, Subtraktion)
     p1 = p1 - p2;
 
     ASSERT_EQ(p1.getDegree(), pResult.getDegree());
-    for (size_t i = 0; i <= p1.getDegree(); i++) {
+    for (int i = 0; i <= p1.getDegree(); i++) {
         ASSERT_EQ(p1[i], pResult[i]);
     }
 }
@@ -108,7 +108,7 @@ TEST(PolynomialTestOperator, Subtraktion2)
 
     p1 = p1 - p2;
 
-    ASSERT_EQ(p1.getDegree(), 0);
+    ASSERT_EQ(p1.getDegree(), -1);
 }
 
 TEST(PolynomialTestOperator, Subtraktion3)

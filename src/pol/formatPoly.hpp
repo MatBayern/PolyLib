@@ -25,10 +25,16 @@ struct std::formatter<poly::Poly<T>, char>
     {
         auto out = ctx.out();
         bool first = true;
-        if (obj.getDegree() == 0) {
+        if (obj.getDegree() == -1) {
             return std::format_to(out, "0");
         }
-        for (std::size_t i = 0; i <= obj.getDegree(); i++) {
+        if (obj.getDegree() == 0) {
+            const T& coef = obj[0];
+            std::format_to(out, "{}", (coef > T{} ? "+" : "-"));
+            std::format_to(out, "{}", coef);
+            return out;
+        }
+        for (int i = 0; i <= obj.getDegree(); i++) {
             const T& coef = obj[i];
 
             if (coef == 0) {
@@ -36,7 +42,7 @@ struct std::formatter<poly::Poly<T>, char>
             }
 
             if (!first) {
-                std::format_to(out, " {} ", (coef > 0 ? "+" : "-"));
+                std::format_to(out, " {} ", (coef > T{} ? "+" : "-"));
             } else if (coef < 0) {
                 std::format_to(out, "-");
             }
@@ -53,11 +59,6 @@ struct std::formatter<poly::Poly<T>, char>
 
             first = false;
         }
-
-        if (first) {
-            return std::format_to(out, "0");
-        }
-        // *out = ss.str();
         return out;
     }
 };

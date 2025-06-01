@@ -43,16 +43,14 @@ private:
         coefficients.reserve(N);
 
         coefficients.push_back(_matrix[0]); // First value, f(x0)
-
         // Calculate divided differences
         for (size_t i = 1; i < N; ++i) {
             for (size_t j = 0; j < N - i; ++j) {
                 size_t currentIdx = j + i * N;
-                if (_matrix[currentIdx] != T{})
-                {
+                if (_matrix[currentIdx] != T{}) {
                     continue;
                 }
-                
+
                 size_t prevRowIdx = j + (i - 1) * N;
 
                 const T& xj = this->_points[j].first;
@@ -64,6 +62,7 @@ private:
             }
             coefficients.push_back(_matrix[i * N]);
         }
+        // std::println("Took {} skips",n);
         return coefficients;
     }
 
@@ -123,8 +122,8 @@ public:
         }
 
         const std::vector<T> COEFFICIENTS = returnCoefficients();
-
-        return generatePolyFromCoeffiecnts(COEFFICIENTS);
+        const auto RESULT = generatePolyFromCoeffiecnts(COEFFICIENTS);
+        return RESULT;
     }
 };
 

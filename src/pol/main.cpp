@@ -1,6 +1,7 @@
 #include "../polyLib.hpp"
 #include "formatPoly.hpp"
 #include "poly.hpp"
+#include <chrono>
 #include <complex>
 #include <list>
 #include <print>
@@ -19,44 +20,46 @@ int main()
 
     std::mt19937 gen(42); // Mersenne Twister random number engine
 
-    // for (size_t i = 0; i < 1000; i++) {
-    //     const auto x  = gen();
-    //     const auto y = gen();
-    //     l1.addPoint(x,y);
-    //     n1.addPoint(x,y);
-
-    // }
-    n1.addPoint(1, 0);
-    n1.addPoint(2, 2);
-    n1.addPoint(3, 5);
-
-    l1.addPoint(1, 0);
-    l1.addPoint(2, 2);
-    l1.addPoint(3, 5);
-    std::println("Added Points");
-    // auto p4 = l1.getInterpolationPolynom();
-
-    // p = p * p2;
-    for (size_t i = 0; i < p.getDegree() + 1; i++) {
+    for (size_t i = 0; i < 1000; i++) {
+        const auto x = gen();
+        const auto y = gen();
+        l1.addPoint(x, y);
+        n1.addPoint(x, y);
     }
-    // std::println("{} ", n1.getInterpolationPolynom());
-    // std::println("{} ", l1.getInterpolationPolynom());
+    // n1.addPoint(1, 0);
+    // n1.addPoint(2, 2);
+    // n1.addPoint(3, 5);
 
-    // std::println("{} ", n1.getInterpolationPolynom());
-    //  std::println("{} ", l1.getInterpolationPolynom());
-    //  l1.addPoint(4, 100);
-    std::println("{} ", l1.getInterpolationPolynom());
+    // l1.addPoint(1, 0);
+    // l1.addPoint(2, 2);
+    // l1.addPoint(3, 5);
+    poly::Poly<double> p8({1});
+    std::println("{}", p8);
+    std::println("{}", p8.getDegree());
 
-    std::println("{} ", n1.getInterpolationPolynom());
-    // n1.addPoint(4, 100);
-    // std::println("{} ", n1.getInterpolationPolynom());
+    // auto p4 = l1.getInterpolationPolynom();
+    auto start1 = std::chrono::high_resolution_clock::now();
+    l1.getInterpolationPolynom();
+    auto stop1 = std::chrono::high_resolution_clock::now();
 
-    std::list<double> list1 = {4, 7, 8, 2};
-    poly::Poly<double> p5{list1.begin(), list1.end()}; // at least a std::forward_iterator is required
+    std::println("Took {}", std::chrono::duration_cast<std::chrono::seconds>(stop1 - start1));
+    l1.setExecutionMode(true);
+    auto start2 = std::chrono::high_resolution_clock::now();
 
-    std::println("{} ", p5);
-    p5.derivative();
-    std::println("{} ", p5);
+    l1.getInterpolationPolynom();
+
+    auto stop2 = std::chrono::high_resolution_clock::now();
+    std::println("Took {}", std::chrono::duration_cast<std::chrono::seconds>(stop2 - start2));
+
+    auto start3 = std::chrono::high_resolution_clock::now();
+    n1.getInterpolationPolynom();
+    auto stop3 = std::chrono::high_resolution_clock::now();
+    std::println("Took {}", std::chrono::duration_cast<std::chrono::seconds>(stop3 - start3));
+
+    auto start4 = std::chrono::high_resolution_clock::now();
+    n1.getInterpolationPolynom();
+    auto stop4 = std::chrono::high_resolution_clock::now();
+    std::println("Took {}", std::chrono::duration_cast<std::chrono::seconds>(stop4 - start4));
 
     return 0;
 }

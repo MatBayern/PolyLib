@@ -30,8 +30,8 @@ class Poly
 {
 
 private:
-    size_t _degree = 0;
-    std::vector<T> _coefficent;
+    int _degree = -1;
+    std::vector<T> _coefficent{{T{}}};
 
 public:
     explicit Poly(size_t degree) : _degree(degree), _coefficent(degree + 1) {};
@@ -56,7 +56,7 @@ public:
      *  Operator Overloading
      *
      */
-    T& operator[](const size_t& index)
+    T& operator[](const int& index)
     {
         if (index >= _degree + 1) {
             throw std::runtime_error("invalid access");
@@ -64,7 +64,7 @@ public:
         return _coefficent[index];
     }
 
-    T operator[](const size_t& index) const
+    T operator[](const int& index) const
     {
         if (index >= _degree + 1) {
             throw std::runtime_error("invalid access");
@@ -84,7 +84,7 @@ public:
     Poly<T> operator+(const Poly<T>& other) const
     {
         Poly<T> result(std::max(_degree, other._degree)); // slect the maximum degree of the resulting polynomial
-        for (size_t i = 0; i <= std::max(_degree, other._degree); i++) {
+        for (int i = 0; i <= std::max(_degree, other._degree); i++) {
             result[i] = (i <= _degree ? _coefficent[i] : T{}) + (i <= other._degree ? other._coefficent[i] : T{});
         }
         return result;
@@ -100,15 +100,16 @@ public:
             }
             tmp._degree--;
         }
+        tmp._coefficent.resize(tmp._degree + 1);
 
-        return Poly<T>{};
+        return tmp;
     }
 
     Poly<T> operator*(const Poly<T>& other) const
     {
         Poly<T> result(_degree + other._degree);
-        for (size_t i = 0; i <= _degree; i++) {
-            for (size_t j = 0; j <= other.getDegree(); j++) {
+        for (int i = 0; i <= _degree; i++) {
+            for (int j = 0; j <= other.getDegree(); j++) {
                 T tmp = _coefficent[i] * other[j];
                 result[i + j] = result[i + j] + tmp;
             }
@@ -122,7 +123,7 @@ public:
     Poly<T> operator*(const T& other) const
     {
         Poly<T> result(*this);
-        for (size_t i = 0; i <= _degree; i++) {
+        for (int i = 0; i <= _degree; i++) {
             result[i] = result[i] * other;
         }
         return result;
@@ -131,7 +132,7 @@ public:
     Poly<T> operator/(const T& other) const
     {
         Poly<T> result(*this);
-        for (size_t i = 0; i <= _degree; i++) {
+        for (int i = 0; i <= _degree; i++) {
 
             result[i] = result[i] / other;
         }
@@ -141,7 +142,7 @@ public:
     Poly<T> operator-() const
     {
         Poly<T> result(_degree);
-        for (size_t i = 0; i <= _degree; i++) {
+        for (int i = 0; i <= _degree; i++) {
             result[i] = -_coefficent[i];
         }
         return result;
@@ -158,7 +159,7 @@ public:
         if (_degree != other.getDegree()) {
             return false;
         }
-        for (size_t i = 0; i <= _degree; i++) {
+        for (int i = 0; i <= _degree; i++) {
             if (_coefficent[i] != other[i]) {
                 return false;
             }
@@ -174,7 +175,7 @@ public:
      *
      * @short This will return the degree of the polynom
      */
-    size_t getDegree() const noexcept
+    int getDegree() const noexcept
     {
         return _degree;
     }
@@ -197,7 +198,7 @@ public:
 
         std::vector<T> tmp;
         tmp.resize(_degree);
-        for (size_t i = 1; i <= _degree; i++) {
+        for (int i = 1; i <= _degree; i++) {
             tmp[i - 1] = _coefficent[i] * i;
         }
         _coefficent = std::move(tmp);
@@ -216,7 +217,7 @@ public:
         }
 
         Poly p(_degree + 1);
-        for (size_t i = 1; i <= _degree + 1; i++) {
+        for (int i = 1; i <= _degree + 1; i++) {
             if (_coefficent[i - 1] == T{}) {
                 p[i] = T{};
                 continue;

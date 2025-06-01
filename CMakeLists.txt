@@ -18,7 +18,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #)
 
 # Add compiler flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -g -O0")
+
+# Find TBB package (only need to do this once)
+find_package(TBB REQUIRED)
 
 # Find all source files in src directory and its subdirectories
 file(GLOB_RECURSE SOURCES
@@ -34,6 +37,9 @@ message(STATUS "Found source files: ${SOURCES}")
 
 # Add executable with all source files
 add_executable(polynomial_app ${SOURCES})
+
+# Link TBB library to the main app
+target_link_libraries(polynomial_app PRIVATE TBB::tbb)
 
 # Include directories
 target_include_directories(polynomial_app PUBLIC
@@ -53,6 +59,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG v1.14.0  # Specify a version tag for stability
 )
+
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE STRING "" FORCE)
@@ -72,8 +79,10 @@ add_executable(polynomial_tests ${TEST_SOURCES})
 file(GLOB_RECURSE LIB_SOURCES "src/*.cpp" "src/*.hpp")
 list(FILTER LIB_SOURCES EXCLUDE REGEX ".*main\\.cpp$")
 list(FILTER LIB_SOURCES EXCLUDE REGEX ".*test\\.cpp$")
-
 target_sources(polynomial_tests PRIVATE ${LIB_SOURCES})
+
+# Link TBB library to the test executable as well
+target_link_libraries(polynomial_tests PRIVATE TBB::tbb)
 
 # Add include directories for tests
 target_include_directories(polynomial_tests PUBLIC

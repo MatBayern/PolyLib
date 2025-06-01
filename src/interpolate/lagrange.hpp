@@ -9,6 +9,7 @@ template <Arithmetic T>
 class Lagrange final : public Interpolate<T>
 {
 private:
+    bool _useInParell = false;
     /**
      *  @short Helper function for calucating a lagrange polynominal for the given index.
      *  @param[in] points A Vector if all the points which are used to interpolate
@@ -51,19 +52,23 @@ public:
         }
 
         std::vector<Poly<T>> lagrangePolynomials;
+        if (_useInParell) {
 
-        // std::vector<size_t> indices(this->_points.size());
-        // std::iota(indices.begin(), indices.end(), 0);
-        // LagrangePolynomials.resize(this->_points.size());
-        // std::for_each(std::execution::par, indices.begin(), indices.end(),
-        //     [this, &LagrangePolynomials](size_t i) {
-        //         LagrangePolynomials[i] = getLagrange(this->_points, i);
-        //     });
+            std::vector<size_t> indices(this->_points.size());
+            std::iota(indices.begin(), indices.end(), 0);
 
-        lagrangePolynomials.reserve(this->_points.size());
+            lagrangePolynomials.resize(this->_points.size());
 
-        for (size_t i = 0; i < this->_points.size(); i++) {
-            lagrangePolynomials.push_back(getLagrange(this->_points, i)); // get Lagrange Polynomials for every index
+            std::for_each(std::execution::par, indices.begin(), indices.end(),
+                [this, &lagrangePolynomials](size_t i) {
+                    lagrangePolynomials[i] = getLagrange(this->_points, i); // get Lagrange Polynomials for every index
+                });
+        } else {
+            lagrangePolynomials.reserve(this->_points.size());
+
+            for (size_t i = 0; i < this->_points.size(); i++) {
+                lagrangePolynomials.push_back(getLagrange(this->_points, i)); // get Lagrange Polynomials for every index
+            }
         }
 
         Poly<T> p = lagrangePolynomials[0] * this->_points[0].second;
@@ -72,6 +77,15 @@ public:
         }
 
         return p;
+    }
+    /**
+     * @short This method let you chose if you want to calculate the Polynom in Parall or not!
+     * @param[in] par The flag to set
+     *
+     */
+    void setExecutionMode(const bool& par) noexcept
+    {
+        _useInParell = par;
     }
 };
 
