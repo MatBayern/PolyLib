@@ -1,6 +1,9 @@
 #pragma once
 #include "../pol/poly.hpp"
 #include "interpolate.hpp"
+#include <algorithm>
+#include <execution>
+#include <numeric>
 #include <utility>
 #include <vector>
 
@@ -24,7 +27,6 @@ private:
             if (j == idx) [[unlikely]] {
                 continue; // Skip the current index
             }
-
             // Build (x - x_j) term
             const Poly<T> TERM({-points[j].first, T(1)}); // Represents (x - x_j)
 
